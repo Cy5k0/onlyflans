@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5" id="account-manager">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <h1 class="display-4 text-center mb-5" id="account-title">Gestionar Cuenta</h1>
+
+            {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} 
+                            alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="row g-4">
+                <!-- Cambiar Contraseña -->
+                <div class="col-md-6">
+                    <div class="card account-card" id="password-card">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h2 class="card-title h4 mb-0">
+                                <i class="fas fa-key me-2"></i>Cambiar Contraseña
+                            </h2>
+                        </div>
+                        <div class="card-body p-4">
+                            <form method="post" id="password-form">
+                                {% csrf_token %}
+                                {% for field in password_form %}
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">{{ field.label }}</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                        {{ field }}
+                                    </div>
+                                    {% if field.errors %}
+                                        {% for error in field.errors %}
+                                        <div class="text-danger small mt-1">
+                                            <i class="fas fa-exclamation-circle me-1"></i>{{ error }}
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    {% if field.help_text %}
+                                        <div class="form-text text-muted small">{{ field.help_text }}</div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                                <button type="submit" name="change_password" 
+                                        class="btn btn-primary account-btn" id="update-password-btn">
+                                    <span class="btn-content">
+                                        <i class="fas fa-save me-2"></i>
+                                        Actualizar Contraseña
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Eliminar Cuenta -->
+                <div class="col-md-6">
+                    <div class="card account-card" id="delete-card">
+                        <div class="card-header bg-danger text-white py-3">
+                            <h2 class="card-title h4 mb-0">
+                                <i class="fas fa-exclamation-triangle me-2"></i>Eliminar Cuenta
+                            </h2>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="alert alert-warning">
+                                <i class="fas fa-exclamation-circle me-2"></i>
+                                <strong>¡Advertencia!</strong> Esta acción es permanente y no se puede deshacer.
+                            </div>
+                            <p class="text-muted mb-4">
+                                Al eliminar tu cuenta:
+                                <ul class="mt-2" id="delete-consequences">
+                                    <li>Todos tus datos serán eliminados permanentemente</li>
+                                    <li>No podrás recuperar tu información</li>
+                                    <li>Perderás acceso inmediatamente</li>
+                                </ul>
+                            </p>
+                            <form method="post" id="delete-form" 
+                                  onsubmit="return confirm('¿Estás completamente seguro que deseas eliminar tu cuenta? Esta acción es irreversible.');">
+                                {% csrf_token %}
+                                <button type="submit" name="delete_account" 
+                                        class="btn btn-danger account-btn" id="delete-account-btn">
+                                    <span class="btn-content">
+                                        <i class="fas fa-trash-alt me-2"></i>
+                                        Eliminar Mi Cuenta
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+{% endblock %}

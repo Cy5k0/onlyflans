@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Contacto</title>
+    <!-- Asegúrate de incluir Bootstrap CSS -->
+  </head>
+  <body>
+    {% extends 'base.html'%} {% block content %}
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-lg">
+            <div
+              class="card-header"
+              style="
+                background: linear-gradient(
+                  to bottom,
+                  rgb(173, 119, 38),
+                  white
+                );
+              "
+            >
+              <h1 class="text-center mb-0 text-dark fw-bold">Contacto</h1>
+            </div>
+            <div class="card-body p-4">
+              <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                <div class="mb-4">
+                  {{ form.customer_email.errors }}
+                  <label
+                    for="{{ form.customer_email.id_for_label }}"
+                    class="form-label fw-bold"
+                  >
+                    Email del cliente:
+                  </label>
+                  {{ form.customer_email }}
+                </div>
+
+                <div class="mb-4">
+                  {{ form.customer_name.errors }}
+                  <label
+                    for="{{ form.customer_name.id_for_label }}"
+                    class="form-label fw-bold"
+                  >
+                    Nombre del cliente:
+                  </label>
+                  {{ form.customer_name }}
+                </div>
+
+                <div class="mb-4">
+                  {{ form.message.errors }}
+                  <label
+                    for="{{ form.message.id_for_label }}"
+                    class="form-label fw-bold"
+                  >
+                    Mensaje:
+                  </label>
+                  {{ form.message }}
+                </div>
+
+                <div class="d-grid gap-2">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg"
+                    style="
+                      background: linear-gradient(
+                        to bottom,
+                        rgb(173, 119, 38),
+                        white
+                      );
+                      border: none;
+                      color: black;
+                      font-weight: bold;
+                    "
+                  >
+                    Enviar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

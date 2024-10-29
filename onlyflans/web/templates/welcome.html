@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bienvenido</title>
+  </head>
+  <body>
+    {% extends 'base.html' %} {% block content %}
+
+    <!-- Mensaje de bienvenida Premium -->
+    <div class="container my-5">
+      <div class="premium-welcome p-4 text-center rounded-3">
+        <h2 class="display-4 mb-4">
+          ¡Qué onda {{user.get_username}}, mi flanero premium! 🌟
+        </h2>
+        <div class="premium-message">
+          <p class="lead mb-4">
+            ¡Llegaste al paraíso de los flanes mágicos! 🪄✨
+          </p>
+          <p class="fs-5 mb-3">
+            Preparate para conocer estos flanes INCREÍBLES que traen una dosis
+            extra de felicidad y sabor premium. ¡Son tan buenos que hasta tu
+            abuelita se pondrá celosa! 👵🏽💖
+          </p>
+          <p class="fs-5 mb-4">
+            Y como eres parte de nuestra familia VIP, tenemos descuentazos que
+            te van a hacer bailar de alegría. 🕺💃 ¡Échale un ojito a estas
+            delicias!
+          </p>
+          <div class="benefits-box p-3 mb-4 rounded-3">
+            <h4 class="text-white mb-3">✨ Tus Superpoderes Premium ✨</h4>
+            <ul class="list-unstyled">
+              <li>🎯 15% de descuento en TODOS los flanes</li>
+              <li>🚀 Envío gratis en pedidos grandes</li>
+              <li>🎁 Flan sorpresa en tu cumpleaños</li>
+              <li>⭐ ¡Y más sorpresas mágicas!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards de Flanes -->
+    <div class="container">
+      <div class="row">
+        {% for flan in flans %}
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">{{ flan.name }}</h5>
+              <p class="card-text">{{ flan.description }}</p>
+              <img
+                src="{{ flan.image_url }}"
+                class="card-img-top"
+                alt="{{ flan.name }}"
+              />
+              <!-- <a href="{% url 'detalle_flan' flan.flan_uuid %}" class="btn btn-primary">Ver Detalles</a> -->
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <style>
+      .premium-welcome {
+        background: linear-gradient(135deg, #ffd700 0%, #ffa500 100%);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .premium-welcome h2 {
+        color: #800080;
+        font-family: "Comic Sans MS", cursive;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .benefits-box {
+        background: rgba(128, 0, 128, 0.8);
+        margin: 0 auto;
+        max-width: 600px;
+      }
+
+      .benefits-box li {
+        margin: 10px 0;
+        font-size: 1.1rem;
+        color: #fff;
+      }
+
+      .premium-message {
+        color: #4a154b;
+      }
+
+      .premium-message .lead {
+        font-weight: 600;
+      }
+    </style>
+
+    {% endblock %}
+  </body>
+</html>
